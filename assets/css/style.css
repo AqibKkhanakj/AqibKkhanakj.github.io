@@ -350,6 +350,13 @@ body.active { overflow: hidden; }
 
 .header.active .theme-btn { background: var(--bg-primary); }
 
+body.light_theme .header:not(.active) .logo a { color: var(--white); }
+
+body.light_theme .hero {
+  --color-primary: var(--white);
+  --color-secondary: hsl(0, 0%, 80%);
+}
+
 .theme-btn .icon {
   position: relative;
   left: 0;
@@ -461,7 +468,7 @@ body.active { overflow: hidden; }
  * #HERO
 \*-----------------------------------*/
 
-main { overflow-x: hidden; }
+main { overflow-x: clip; }
 
 .hero {
   min-height: 100vh;
@@ -744,7 +751,10 @@ main { overflow-x: hidden; }
  * #CONTACT
 \*-----------------------------------*/
 
-.contact { padding-block: var(--section-padding); }
+.contact {
+  scroll-margin-top: 90px;
+  padding-block: var(--section-padding);
+}
 
 .contact-content { margin-bottom: 50px; }
 
@@ -1113,6 +1123,8 @@ textarea.input-field {
   }
 
   .navbar-link::before { height: 2px; }
+
+  body.light_theme .header:not(.active) .navbar-link { color: var(--white); }
 
 
 

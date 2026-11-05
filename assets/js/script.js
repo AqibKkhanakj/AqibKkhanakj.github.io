@@ -67,39 +67,58 @@ for (let i = 0; i < toggleBtns.length; i++) {
 
 
 /**
- * dark & light theme toggle
+ * hire me scrolls to the contact section
+ */
+
+const hireMeBtn = document.querySelector(".about .btn-secondary");
+
+if (hireMeBtn) {
+  hireMeBtn.addEventListener("click", function (event) {
+
+    const contactSection = document.getElementById("contact");
+    if (!contactSection) return;
+
+    event.preventDefault();
+    contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.pushState(null, "", "#contact");
+
+  });
+}
+
+
+
+/**
+ * day and night theme toggle
  */
 
 const themeToggleBtn = document.querySelector("[data-theme-btn]");
 
-themeToggleBtn.addEventListener("click", function () {
+const applyTheme = function (theme) {
 
-  elemToggleFunc(themeToggleBtn);
+  const isLight = theme === "light_theme";
 
-  if (themeToggleBtn.classList.contains("active")) {
-    document.body.classList.remove("dark_theme");
-    document.body.classList.add("light_theme");
+  document.body.classList.toggle("light_theme", isLight);
+  document.body.classList.toggle("dark_theme", !isLight);
 
-    localStorage.setItem("theme", "light_theme");
-  } else {
-    document.body.classList.add("dark_theme");
-    document.body.classList.remove("light_theme");
+  if (!themeToggleBtn) return;
 
-    localStorage.setItem("theme", "dark_theme");
-  }
+  themeToggleBtn.classList.toggle("active", isLight);
+  themeToggleBtn.setAttribute("aria-pressed", String(isLight));
+  themeToggleBtn.setAttribute("aria-label", isLight ? "Switch to night mode" : "Switch to day mode");
 
-});
+};
 
-/**
- * check & apply last time selected theme from localStorage
- */
+if (themeToggleBtn) {
 
-if (localStorage.getItem("theme") === "light_theme") {
-  themeToggleBtn.classList.add("active");
-  document.body.classList.remove("dark_theme");
-  document.body.classList.add("light_theme");
-} else {
-  themeToggleBtn.classList.remove("active");
-  document.body.classList.remove("light_theme");
-  document.body.classList.add("dark_theme");
+  applyTheme(localStorage.getItem("theme") === "light_theme" ? "light_theme" : "dark_theme");
+
+  themeToggleBtn.addEventListener("click", function () {
+
+    const nextTheme = document.body.classList.contains("dark_theme") ? "light_theme" : "dark_theme";
+
+    applyTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+
+  });
+
 }
