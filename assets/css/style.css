@@ -488,7 +488,11 @@ main { overflow-x: hidden; }
   margin-bottom: 30px;
 }
 
-.hero .btn-primary { margin-inline: auto; }
+.hero .btn-primary {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+}
 
 
 
