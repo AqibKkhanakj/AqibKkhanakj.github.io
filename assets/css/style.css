@@ -865,6 +865,22 @@ textarea.input-field {
 
 .input-field:focus + ion-icon { color: var(--raw-seinna); }
 
+.form-honey {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.form-status {
+  min-height: 1.4em;
+  margin-top: 12px;
+  color: var(--color-primary);
+}
+
+.form-status.error { color: var(--raw-seinna); }
+
 .contact .btn-primary {
   max-width: unset;
   width: 100%;

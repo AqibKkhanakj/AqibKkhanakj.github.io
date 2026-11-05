@@ -122,3 +122,65 @@ if (themeToggleBtn) {
   });
 
 }
+
+
+
+/**
+ * contact form emails jadoonaqib16@gmail.com
+ */
+
+const contactForm = document.getElementById("contact-form");
+
+if (contactForm) {
+
+  const status = contactForm.querySelector(".form-status");
+  const submitBtn = contactForm.querySelector("[type='submit']");
+
+  contactForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    submitBtn.disabled = true;
+    status.classList.remove("error");
+    status.textContent = "Sending...";
+
+    fetch("https://formsubmit.co/ajax/jadoonaqib16@gmail.com", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(contactForm)
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error("Request failed");
+        return response.json();
+      })
+      .then(function () {
+        contactForm.reset();
+        status.textContent = "Message sent.";
+      })
+      .catch(function () {
+        const data = new FormData(contactForm);
+        const body = [
+          "Name: " + data.get("name"),
+          "Email: " + data.get("email"),
+          "Phone: " + data.get("phone"),
+          "",
+          data.get("message")
+        ].join("\n");
+        const mailto = "mailto:jadoonaqib16@gmail.com?subject="
+          + encodeURIComponent("Portfolio message from " + data.get("name"))
+          + "&body=" + encodeURIComponent(body);
+        const link = document.createElement("a");
+
+        link.href = mailto;
+        link.textContent = "email jadoonaqib16@gmail.com directly";
+        status.classList.add("error");
+        status.textContent = "";
+        status.append("The message could not be sent. ", link, ".");
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+      });
+
+  });
+
+}
