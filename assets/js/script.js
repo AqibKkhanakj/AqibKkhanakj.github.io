@@ -184,3 +184,28 @@ if (contactForm) {
   });
 
 }
+
+
+
+/**
+ * project cards flip on tap when the device has no hover
+ */
+
+const projectCards = document.querySelectorAll(".project-card, .certificate-card");
+const canHover = window.matchMedia("(hover: hover)").matches;
+
+if (!canHover) {
+  projectCards.forEach(function (card) {
+
+    card.addEventListener("click", function (event) {
+
+      if (card.classList.contains("is-flipped")) return;
+
+      event.preventDefault();
+      projectCards.forEach(function (item) { item.classList.remove("is-flipped"); });
+      card.classList.add("is-flipped");
+
+    });
+
+  });
+}
